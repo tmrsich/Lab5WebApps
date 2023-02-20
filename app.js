@@ -1,9 +1,23 @@
 //set up the server
 const express = require("express");
 const logger = require("morgan");
+const helmet = require("helmet");
 const app = express();
 const port = process.env.PORT || 8080;
-const db = require('./db/db_connection');
+const db = require('./db/db_pool');
+
+//Configure Express to use certain HTTP headers for security
+//Explicitly set the CSP to allow certain sources
+app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", 'cdnjs.cloudflare.com'],
+        styleSrc: ["'self'", 'cdnjs.cloudflare.com', 'fonts.googleapis.com'],
+        fontSrc: ["'self'", 'fonts.googleapis.com']
+      }
+    }
+  }));
 
 // Configure Express to use EJS
 app.set( "views",  __dirname + "/views");
