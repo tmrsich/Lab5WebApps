@@ -20,7 +20,7 @@ app.use(helmet({
   }));
 
 // Configure Express to use EJS
-app.set( "views",  __dirname + "/views");
+app.set( "views",  __dirname + "/public");
 app.set( "view engine", "ejs" );
 
 // defines middleware that logs all incoming requests
